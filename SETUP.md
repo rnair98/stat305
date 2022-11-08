@@ -50,7 +50,7 @@ Setup
 2. Next, navigate in your shell to your project directory and clone the project at `https://github.com/rnair98/stat305`\
 `gh repo clone rnair98/stat305`
 3. Next, go into the directory and switch to your branch.\
-`cd cis427_project1`\
+`cd stat305`\
 `git checkout ted` OR `git checkout abe`
 
 Now you'll be able to work within your own branch and submit any changes you make to the code.
