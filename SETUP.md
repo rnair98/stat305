@@ -58,7 +58,7 @@ Now you'll be able to work within your own branch and submit any changes you mak
 Git Workflow
 =============
 
-Everytime you introduce a change or series of changes to the codebase (editing `main.cpp` or adding new documentation), make sure to follow these steps.
+Everytime you introduce a change or series of changes to the codebase (editing `Notebook.Rmd` or adding new documentation), make sure to follow these steps.
 
 1.`git add *`
 
