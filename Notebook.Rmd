@@ -1,0 +1,51 @@
+---
+title: "Insurance Policy"
+author: "Ted Zybin, Rohit Nair, Ibrahim Alwishah"
+date:   "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## External Requirements
+
+```{r}
+
+# libraries
+
+library("tidyr")
+library("dplyr")
+library("ggplot2")
+library("mosaic")
+
+# data
+insurance_data <- read.csv("Insurance_policy.csv")
+```
+
+```{r}
+knitr::kable(head(insurance_data))
+```
+
+## Research Question
+
+## Introduction
+
+## Visualization
+
+## Descriptive Statistics
+
+## Analysis
+
+### Quantify Uncertainty
+
+-   Bootstrap Confidence Intervals
+
+## Discussion
+
+## 
+
+## References
+
+## Appendix
