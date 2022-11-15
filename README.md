@@ -5,6 +5,8 @@ You are a risk analyst in an insurance and have been asked to assist the marketi
 
 ## Research Question
 
+How do the provided variables correlate with the prediction that a customer is high value?
+
 ## Required Items
 * Data Visualizations
 * Tabulations
