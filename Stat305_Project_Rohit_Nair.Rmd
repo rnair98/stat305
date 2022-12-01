@@ -1,0 +1,253 @@
+---
+title: "Stat 305 Project Template - Insurance Policy"
+author: "Rohit Nair"
+date: " "
+output: pdf_document
+editor_options: 
+  markdown: 
+    wrap: 72
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+**Teammates' Names:** Ted Zybin, Ibrahim Alwishah
+
+## Research Question
+
+How do the provided variables correlate with the prediction that a
+customer is high value?
+
+## External Requirements: Data Read-In and Package Loading
+
+```{r}
+# read in the data in this codeblock
+
+# first make sure this Rmd file and your csv file are in the same folder,
+# you need to set the working directory under the Session menu (RStudio top)
+# to the source file location
+
+df = read.csv("Insurance_policy.csv")
+```
+
+```{r, message = FALSE, warning = FALSE}
+# load any libraries in this codeblock, not later in the file,
+# do not install packages in any Rmd file! Instead install packages
+# at your console
+
+library(mosaic)
+library(ggplot2)
+library(dplyr)
+```
+
+## Count and Remove Some Missing Values as Appropriate (NAs)
+
+```{r}
+# make a mental note on how many rows and columns we have at the start
+dim(df)
+```
+
+```{r}
+# we see in the summary how many missing values in each variable
+summary(df)
+
+# more visibly we can see the number of missing values in each variable this way 
+colSums( is.na(df)  );
+
+# how many rows have 0 NAs, in other words, how many rows are complete?
+sum( complete.cases(df) );
+
+# how many rows are incomplete? Wow, 27% of the rows are incomplete rows. 
+sum( !complete.cases(df)  )
+```
+
+```{r}
+# take age and score 
+age_score = select(df, age, score);
+# only 37 rows are missing, instead of 42!
+sum( !complete.cases(age_score));
+# take only those rows that have both ozone and temp
+age_score = age_score[ complete.cases(age_score), ];
+# confirm there are no missing values
+colSums(  is.na(age_score))
+```
+
+## Dataset Description
+
+This dataset contains data about policyholders in a certain insurance
+provider. It records the age, a score for amount of education, martial
+status, occupation, capital gains on investments, hours worked per week,
+an insurance score, and assigns a value flag to each policyholder. The
+goal of this dataset is to be used for some form of risk assessment.
+
+There were no NAs within the dataset, so no rows were removed.
+
+Some variables of interest include:
+
+-   age -\> Units: years -\> numerical
+
+-   education_num -\> Units: NA -\> numerical
+
+-   occupation -\> Units: NA -\> categorical
+
+-   score -\> Units: NA -\> numerical
+
+-   cap_gain -\> Units: USD -\> numerical
+
+-   value_flag -\> Units: NA -\> categorical
+
+This is observational data, from which you can infer association and
+correlation, but not causation.
+
+## Data Transformation
+
+```{r}
+# check that variables you think should be factors are factors!
+# str(df);
+# darn, it tells me the month is an integer not a factor, which 
+# can't be right, since I can't average months.
+# we might also consider recoding day
+
+# so let's recode it and check it is now a factor. 
+df$marital_status = as.factor(df$marital_status);
+df$occupation = as.factor(df$occupation);
+df$value_flag = as.factor(df$value_flag);
+str(df)
+```
+
+## Exploratory Data Analysis: Descriptive Statistics and Visualizations
+
+```{r}
+num_df <- df %>%
+          select(age,education_num,cap_gain,
+                         hours_per_week,score) %>%
+          filter(age >= 25,cap_gain != 0) %>%
+          arrange(age)
+head(num_df)
+```
+
+```{r}
+favstats_vec = c()
+columns = colnames(num_df)
+
+total_favstats = data.frame()
+
+for (i in 1:ncol(num_df)){
+  total_favstats <- rbind(total_favstats,favstats(num_df[,i]))
+}
+
+total_favstats <- cbind(names = columns,total_favstats)
+rownames(total_favstats) <- NULL
+
+total_favstats
+```
+
+1)  
+
+    ```{r}
+    scores_by_valueflag <- df %>%
+      filter(age >= 25, occupation != "Group NA") %>%
+      select(occupation,score,value_flag) %>%
+      mutate_at(vars(occupation,value_flag),list(factor))
+      
+
+    print(str(scores_by_valueflag));
+      
+    ggplot(scores_by_valueflag, aes(x=occupation,y=score)) +
+      geom_boxplot(aes(fill=value_flag)) +
+      ggtitle("Distribution of Scores by Occupation")
+    ```
+
+    The graph above explicates the association between type of
+    occupation and score according to the value flag they were labeled
+    with. It's shown that the median scores for all types of occupations
+    never go above 60 for those labeled with `low`.
+
+    ```{r}
+    education_score <- df %>%
+      select(education_num,score,value_flag) %>%
+      group_by(education_num,value_flag) %>%
+      summarize(avg_score = mean(score))
+
+    education_score
+    ```
+
+    ```{r}
+    ggplot(data = education_score,mapping = aes(x = education_num,y = avg_score,color = value_flag)) +
+      geom_point() +
+      xlab("Number of Years of Education") +
+      ylab("Average Score") +
+      ggtitle("Average Score vs. Number of YoE")
+    ```
+
+    This graph shows the association between the number of years of
+    education and the average score. It also shows that those with
+    scores 60 or below tend to be classified as low.
+
+    ```{r}
+    age_value_by_occupation <- df %>%
+      filter(age >= 25,occupation != "Group NA") %>%
+      select(age,occupation,value_flag) %>%
+      group_by(age,occupation,value_flag) %>%
+      summarize(count=count(value_flag))
+    age_value_by_occupation
+    ```
+
+    ```{r}
+    ggplot(data = age_value_by_occupation, mapping = aes(x = age, y = count,color = value_flag)) +
+      geom_point() +
+      xlab("Age (Years)") +
+      ylab("Count of Value_Flag") +
+      ggtitle("Value_Flag by Age, based on Occupation") +
+      facet_wrap(~occupation,nrow=2)
+    ```
+
+    The graph above looks at the total incidence of each value_flag at
+    all ages present in dataset, while divided into facets based on the
+    type of occupation. For Groups 1-3, there's a higher number of
+    people classified as `low` for the bulk of the recorded ages.
+
+```{r}
+data <- df %>%
+  filter(age >= 25,occupation != "Group NA",cap_gain != 0) %>%
+  group_by(marital_status,occupation,value_flag)
+
+knitr::kable(summary(data))
+```
+
+## Statistical Analysis: Confidence Interval, Hypothesis Test, and Model or Machine Learning
+
+1)  **On your own,** create at least one bootstrap confidence interval.
+    Discuss with your team so that you do NOT do the same confidence
+    interval.
+
+2)  **On your own,** do at least one hypothesis test. Discuss with your
+    team so that you do NOT do the same hypothesis test. Clearly state
+    what the population is (remember, the sample is a subset of the
+    population). You want to infer from the sample to the population, so
+    select the appropriate population based on your dataset. Clearly
+    state the hypotheses in terms of population parameters: \newline
+    $H_0:$ blah blah blah \newline $H_A:$ blah blah blah \newline State
+    your conclusion for each test in a phrase like: \newline "We reject
+    the null hypothesis. The data provide convincing evidence at the .05
+    significance level that...." \newline or \newline "We fail to reject
+    the null hypothesis. The data *do not* provide convincing evidence
+    at the .05 significance level that...."
+
+3)  **On your own,** fit at least one model, or use at least one machine
+    learning technique. Discuss with your team so that you do not do the
+    same thing.
+
+## One more thing
+
+Do one more thing that interests you. Perhaps another graph, or another
+hypothesis test, or try to fit another model, or do a simulation to make
+a sampling distribution of an estimator, or get another data set from
+Kaggle and somehow link it to this one. **Be creative and push your
+boundaries!**
+
+## Conclusion
+
+Write one paragraph that summarizes what you did in this Rmd file and
+reiterate your main finding(s).
