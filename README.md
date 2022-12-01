@@ -3,7 +3,14 @@
 ## Background Information
 You are a risk analyst in an insurance and have been asked to assist the marketing department. They have been collecting data on past policyholders. For each policyholder they have determined if they are “high value” or “low value” based on profitability. They would like to be able predict for each prospective policyholder if they will be high or low value.  Your task is to use the available data to construct a model that will accurately predict if a potential customer will be high or low value. While predictive accuracy is more important to the marketing department than understanding the relationships of the predictors to the target variable, the marketing department will have more confidence in your work if the results make sense. The insurance company indicated that this analysis will only be applied to individuals age 25 and older.
 
+
+## Hypothesis Test Link
+http://www.stat.ucla.edu/~rgould/110as02/bshypothesis.pdf
+
+
 ## Research Question
+
+How do the provided variables correlate with the prediction that a customer is high value?
 
 ## Required Items
 * Data Visualizations
