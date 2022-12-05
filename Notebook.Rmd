@@ -29,6 +29,7 @@ knitr::kable(head(insurance_data))
 ```
 
 ## Research Question
+How do the provided variables associate with the prediction that a customer is high value?
 
 ## Introduction
 
