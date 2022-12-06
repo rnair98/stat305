@@ -3,6 +3,9 @@ title: "Insurance Policy"
 author: "Ted Zybin, Rohit Nair, Ibrahim Alwishah"
 date:   "`r Sys.Date()`"
 output: html_document
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
 ```{r setup, include=FALSE}
@@ -29,49 +32,108 @@ knitr::kable(head(insurance_data))
 ```
 
 ## Research Question
-How do the provided variables associate with the prediction that a customer is high value?
+
+How do the provided variables associate with the prediction that a
+customer is high value?
 
 ## Introduction
-Risk assessment is a critical aspect of the insurance industry, as it allows companiesto accurately assess the likelihood of a policyholder filing a claim and to set premiums accordingly. By identifying high value policyholders, insurance companies can prioritize providing them with the best possible products and services, leading to increased customer satisfaction and loyalty. Additionally, accurately predicting which policyholders are likely to be low value can help the company make informed decisions about which potential customers to accept or reject. This can help the company avoid accepting high-risk policyholders who are likely to file costly claims, ultimately leading to improved financial performance. Marginal improvements in risk assessment techniques can therefore have a significant impact on the overall success of an insurance company.
 
-In this study, we will explore the relationship between various predictor variables and the target variable of whether an individual is considered a "high value" or "low value" policyholder by an insurance company. We have been provided with data on past policyholders, including their age, level of education, marital status, occupation, capital gains, hours worked per week, and an insurance score. Using this data, we will construct a model that can accurately predict whether a prospective policyholder will be of high or low value to the company. While predictive accuracy is of utmost importance, we will also strive to interpret our results in a way that makes intuitive sense. For the purposes of this analysis, we will only consider individuals who are 25 years of age or older.
+Risk assessment is a critical aspect of the insurance industry, as it
+allows companies to accurately assess the likelihood of a policyholder
+filing a claim and to set premiums accordingly. By identifying high
+value policyholders, insurance companies can prioritize providing them
+with the best possible products and services, leading to increased
+customer satisfaction and loyalty. Additionally, accurately predicting
+which policyholders are likely to be low value can help the company make
+informed decisions about which potential customers to accept or reject.
+This can help the company avoid accepting high-risk policyholders who
+are likely to file costly claims, ultimately leading to improved
+financial performance. Marginal improvements in risk assessment
+techniques can therefore have a significant impact on the overall
+success of an insurance company.
+
+In this study, we will explore the relationship between various
+predictor variables and the target variable of whether an individual is
+considered a "high value" or "low value" policyholder by an insurance
+company. We have been provided with data on past policyholders,
+including their age, level of education, marital status, occupation,
+capital gains, hours worked per week, and an insurance score. Using this
+data, we will construct a model that can accurately predict whether a
+prospective policyholder will be of high or low value to the company.
+While predictive accuracy is of utmost importance, we will also strive
+to interpret our results in a way that makes intuitive sense. For the
+purposes of this analysis, we will only consider individuals who are 25
+years of age or older.
 
 Based on the data provided, the factors of interest include:
-* The age of the prospective policyholder
-* A numerical indicator of the amount of education that a policyholder has
-* Marital status of the policyholder
-* Occupation of the policyholder
-* Capital gains recorded on the investments of the policyholder
-* The number of hours worked per week by the policyholder
-* The proprietary insurance score of the policyholder
 
-Furthermore, we can synthesize new variables from the existing one that would prove useful in ultimately predicting that value of a potential policyholder.
-* The ratio of capital gains to hours worked per week, which could provide insight into the policyholder's investment habits and financial success. 
-* A variable which captures the effect of increasing age on the value of education
-* Use regression analysis to derive a predictive model that incorporates all of the existing predictor variables, which would allow us to identify the relative importance of each variable and potentially create a new, composite variable that represents the combined effect of all predictors.
+-   The age of the prospective policyholder
+
+-   A numerical indicator of the amount of education that a policyholder
+    has \* Marital status of the policyholder
+
+-   Occupation of the policyholder
+
+-   Capital gains recorded on the investments of the policyholder
+
+-   The number of hours worked per week by the policyholder
+
+-   The proprietary insurance score of the policyholder
+
+Furthermore, we can synthesize new variables from the existing one that
+would prove useful in ultimately predicting that value of a potential
+policyholder.
+
+-   The ratio of capital gains to hours worked per week, which could
+    provide insight into the policyholder's investment habits and
+    financial success.
+
+-   A variable which captures the effect of increasing age on the value
+    of education
+
+-   Use regression analysis to derive a predictive model that
+    incorporates all of the existing predictor variables, which would
+    allow us to identify the relative importance of each variable and
+    potentially create a new, composite variable that represents the
+    combined effect of all predictors.
 
 **Insert Explanation of Models**
 
-
 ### Visualization
-* Identify the scientific questions we can ask about the data.
-* Create new variables & information given the existing variables in the dataset.
-* Write custom functions to transform data
+
+-   Identify the scientific questions we can ask about the data.
+-   Create new variables & information given the existing variables in
+    the dataset.
+-   Write custom functions to transform data
 
 ### Descriptive Statistics
-* Present the data in different types of tables, diagrams, and find all descriptive stats (mean, median, mode, std.dev, etc.,)
-* 3 numerical summary tables and 3 graphs
+
+-   Present the data in different types of tables, diagrams, and find
+    all descriptive stats (mean, median, mode, std.dev, etc.,)
+-   3 numerical summary tables and 3 graphs
 
 ### Analysis
-* Discuss at least one bootstrap confidence interval, at least one hypothesis test, and two linear models trained on all the data (include at least one scatter-plot with a regression line). Compare the two linear models in terms of test mean square error (train both using the same subset of all the data called training data, and form the test mean square error using the rest of the data, called test data). 
 
+-   Discuss at least one bootstrap confidence interval, at least one
+    hypothesis test, and two linear models trained on all the data
+    (include at least one scatter-plot with a regression line). Compare
+    the two linear models in terms of test mean square error (train both
+    using the same subset of all the data called training data, and form
+    the test mean square error using the rest of the data, called test
+    data).
 
 ## Discussion + Conclusion
-* Write a clear description of the results from the previous sections. Do not forget to address the research questions that you posed in the introduction section. Make sure to pose possible questions based on graphs, tables, and other inferential results.
+
+-   Write a clear description of the results from the previous sections.
+    Do not forget to address the research questions that you posed in
+    the introduction section. Make sure to pose possible questions based
+    on graphs, tables, and other inferential results.
 
 ## References
-* List of all books, journals, web sites, videos referenced.
-* Use footnotes for in-line references (see sample project)
+
+-   List of all books, journals, web sites, videos referenced.
+-   Use footnotes for in-line references (see sample project)
 
 ## Appendix
-* All code goes here.
+
+-   All code goes here.
