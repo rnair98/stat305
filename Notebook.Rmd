@@ -40,7 +40,7 @@ library("mosaic")
 insurance_data <- read.csv("Insurance_policy.csv")
 ```
 
-```{r}
+```{r results = "markup"}
 knitr::kable(head(insurance_data))
 ```
 
@@ -48,7 +48,7 @@ knitr::kable(head(insurance_data))
 
 ### Count and Remove Some Missing Values as Appropriate (NAs)
 
-```{r}
+```{r results = "markup"}
 dim(insurance_data);
 # summary to see if there are any missing values
 summary(insurance_data);
@@ -62,7 +62,7 @@ sum( !complete.cases(insurance_data) )
 
 ### Data Transformation
 
-```{r}
+```{r results = "markup"}
 # check that all relevant variables are factors
 str(insurance_data);
 # setting marital status, occupation, and value flag as factors
@@ -71,7 +71,7 @@ insurance_data$occupation = as.factor(insurance_data$occupation);
 insurance_data$value_flag = as.factor(insurance_data$value_flag);
 str(insurance_data)
 ```
-```{r}
+```{r results = "markup"}
 # filtering out individuals less than 25 years of age and with a cap gain of 0.
 num_df <- insurance_data %>%
   select(age,education_num,cap_gain,
@@ -256,6 +256,100 @@ ggplot(scores_by_valueflag, aes(x=occupation, y=score)) +
 
 ### Analysis
 
+## Visualization
+
+Our bootstrap confidence interval is taken on individuals older than or equal to the age 25 and have a capital gain greater than 0 USD, with a high value flag. We were given a population size of 2462.
+
+```{r}
+population <- df %>%
+  filter(age >= 25, cap_gain > 0, value_flag == "High") 
+
+ggplot(population, aes(x = cap_gain)) + 
+  geom_density() + 
+  ggtitle("Population Distribution of Capital Gains") + 
+  xlab("Capital Gain") + 
+  ylab("Density")
+
+
+```
+
+The graph shows the skew we have with the capital gain. We can infer that there is not much variability after 25000 for capital gain, although we do see a small spike when reaching 100000.
+
+
+```{r}
+set.seed(101)
+# select a sample, without replacement
+sample = population %>%
+sample_n(size = 200,replace = FALSE)
+
+bootstrap_samplemeans <- do(1000)*mean(~cap_gain,
+data = sample_n(population,size=200,
+replace = TRUE))
+bootstrap_samplemeans <- bootstrap_samplemeans %>%
+rename(boostrap_samplemeans = mean)
+head(bootstrap_samplemeans)
+
+```
+
+In the chart above we see the estimated summary taken on the sample population of those over the age of 25 who's capital gain is greater than 0. This data can be used to calculate errors and perform hypothesis test to further support our research.
+
+
+
+## Hypothesis Testing
+
+The average capital gains value within a sample of this population is assumed to be greater than $20000 USD. Is this supported by the data?
+
+H0 : The average capital gains amount for an individual equal to or above the age of 25 flagged as being high value is greater than or equal to $20000.
+
+Ha : The average capital gains amount for an individual equal to or above the age of 25 flagged as being high value is less than $20000.
+
+H0 : µ >= 20000
+
+Ha : µ < 20000
+
+To compute the p-value, we assume that the null hypothesis is true and we’ll set the significance level at 5%.
+
+```{r results = "markup"}
+# claimed value of the mean
+omean <- 20000
+# store the current sample
+sample_cap_gains <- sample$cap_gain
+# compute the sample mean
+mean_sample <- mean(sample_cap_gains)
+mean_sample
+```
+
+```{r results = "markup"}
+# store the error in estimating the average capital gains for the sample
+# distance between null value and sample mean
+c <- abs(omean - mean_sample)
+
+```
+
+
+```{r results = "markup"}
+new_cap_gains <- sample_cap_gains - mean_sample + 20000
+
+mean(new_cap_gains)
+
+```
+
+```{r results = "markup"}
+both <- data.frame(sample_cap_gains,new_cap_gains)
+
+bootstrap <- do(1000)*mean(~new_cap_gains,
+data = sample_n(both,
+size = nrow(both),
+replace = T))
+
+p_value <- sum(bootstrap$mean >= mean_sample)/1000
+
+cat("p-value is equal to:",p_value)
+```
+
+Since the p-value is greater than 0.05, We fail to reject the null hypothesis. The data do not provide convincing evidence at the .05 significance level that the average capital gains value is greater than 20000. As we fail to reject the null hypothesis, we can prove that those older than 25 and have a capital gain greater than 20000 USD, than they are more likely to be a high value customer. The information we have now can be used to conclude that age and capital gain do play a role in predicting high value clients. The variable that we focus on with the test would be age in years greater than 25 and a capital gain greater than 0.
+
+
 -   Discuss at least one bootstrap confidence interval, at least one
     hypothesis test, and two linear models trained on all the data
     (include at least one scatter-plot with a regression line). Compare
@@ -264,7 +358,7 @@ ggplot(scores_by_valueflag, aes(x=occupation, y=score)) +
     the test mean square error using the rest of the data, called test
     data).
     
-```{r warning=FALSE}
+```{r warning=FALSE, results = "markup"}
 
 
 data <- insurance_data %>% 
