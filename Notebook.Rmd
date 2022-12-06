@@ -176,6 +176,15 @@ interval and doing hypothesis testing**
 chose to use a support vector machine for multiclass classification over
 other ML models to predict policyholder value)**
 
+
+## Data Set Description
+
+The data set has 48842 rows and 8 columns, above it also shows the mean and max of different categories using the 'summary' function. The data set also does not have NAs or incomplete rows.
+
+This data set contains information for an unspecified insurance provider. The data recorded is categorized by age, education number which is a score that is a numerical value given based of their level of education, marital status, occupation, capital gain on investments, and value flag which is an integer of a high value customer and low value customer.
+
+The variables used in the data are age which is a numerical variable that is taken in years, education number is a numerical value showing the level of education of the customer, marital status is a seven level variable that tell us their relationship status, occupation is 6 split into 6 groups that there is no specific meaning to except the sixth group which indicates the occupation is not known, capital gain is a numerical value that is recording on investments, and hours per week which is a number recorded in hours of the amount of work customers work. 
+
 ## Exploratory Data Analysis
 
 ### Descriptive Statistics
