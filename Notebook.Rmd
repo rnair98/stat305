@@ -139,7 +139,7 @@ Based on the data provided, the factors of interest include:
 
 -   The proprietary insurance score of the policyholder
 
-Furthermore, we can synthesize new variables from the existing one that
+Furthermore, we can synthesize new variables from the existing ones that
 would prove useful in ultimately predicting that value of a potential
 policyholder.
 
@@ -203,6 +203,8 @@ total_favstats
 ```
 
 
+
+
 ### Visualization
 
 -   Identify the scientific questions we can ask about the data.
@@ -210,6 +212,11 @@ total_favstats
     the dataset.
 -   Write custom functions to transform data
 -   3 graphs
+
+##
+
+
+
 
 ### Analysis
 
