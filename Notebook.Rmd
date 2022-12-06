@@ -97,7 +97,25 @@ policyholder.
     potentially create a new, composite variable that represents the
     combined effect of all predictors.
 
-**Insert Explanation of Models**
+Before deriving insights from associations implied by the models used,
+it is important to condense the data using useful statistical summaries.
+Summary statistics will provide valuable information about the
+distribution of the data and the overall spread of the values within
+each variable. For example, the mean and standard deviation can be used
+to identify any potential outliers in the data, while the range can
+provide a sense of the overall variability within the data.
+Additionally, comparing the summary statistics for each variable can
+help identify any potential relationships or patterns within the data.
+These summary statistics can be used to inform the development of the
+predictive model, as well as to interpret and understand the results of
+the analysis.
+
+**Insert a general summary of why we're using a bootstrap confidence
+interval and doing hypothesis testing**
+
+**Insert Explanation of Models ---\> (Ultimately, a summary of why we
+chose to use a support vector machine for multiclass classification over
+other ML models to predict policyholder value)**
 
 ### Visualization
 
