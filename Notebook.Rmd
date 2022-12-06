@@ -234,8 +234,23 @@ total_favstats
 -   Write custom functions to transform data
 -   3 graphs
 
-##
+#### Distribution of Policyholder Scores by Occupation
+```{r}
+scores_by_value_flag <- df %>%
+  filter(age >= 25) %>%
+  select(occupation,score,value_flag) %>%
+  mutate_at(vars(occupation,value_flag),list(factor))
 
+# boxplot showing distribution of scores by occupation
+ggplot(scores_by_valueflag, aes(x=occupation, y=score)) +
+  geom_boxplot(aes(fill=value_flag))+
+  xlab("Occupation (in Categorical Groups)") +
+  ylab("Insurance Scores") +
+  ggtitle("Distribution of Scores by Occupation")
+```
+
+
+#### Value Flags by Age, Based on Occupation
 
 
 
@@ -252,25 +267,23 @@ total_favstats
 ```{r warning=FALSE}
 
 
-data <- insurance_policy %>% 
+data <- insurance_data %>% 
   group_by(hours_per_week, value_flag) %>%
   summarise(scoreHoursperWeek = mean(score))
 
 model <- lm(data$scoreHoursperWeek ~ data$hours_per_week)
 
-  
 
 data %>%
   ggplot() +
   geom_point(aes(x = hours_per_week, 
                  y = scoreHoursperWeek, color = value_flag)) +
-  labs(title = "Age of people with insurance  versus education number",
+  labs(title = "Age of people with insurance versus education number",
        x = "Hours Worked Per Week", y = "Score") +
   geom_abline(intercept = model$coefficients[1],
               slope = model$coefficients[2], 
               color="red")
-    
-    
+```
 
 ## Discussion + Conclusion
 
