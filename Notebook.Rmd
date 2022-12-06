@@ -252,7 +252,18 @@ ggplot(scores_by_valueflag, aes(x=occupation, y=score)) +
 
 #### Value Flags by Age, Based on Occupation
 
+#### Value Flags by Age, Based on Education
 
+```{r}
+insurancedata %>%
+  group_by(age, value_flag) %>%
+  summarise(averageeduc = mean(education_num)) %>%
+  ggplot() +
+  geom_point(aes(x = age, y = averageeduc, colour = value_flag )) +
+  labs(title = "The Relationship Between The Age Group And The Education 
+       Level With Respect To The Flag Value") +
+  xlab("Age") + ylab("Average Education Level")
+```
 
 ### Analysis
 
