@@ -34,7 +34,9 @@ knitr::kable(head(insurance_data))
 ## Research Question
 
 How do the provided variables associate with the prediction that a
-customer is high value?
+customer is of high value and what model provides a feasible baseline
+accuracy using the most important, if not all, variables for the
+aforementioned prediction?
 
 ## Introduction
 
