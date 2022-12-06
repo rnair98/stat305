@@ -50,25 +50,28 @@ Furthermore, we can synthesize new variables from the existing one that would pr
 * A variable which captures the effect of increasing age on the value of education
 * Use regression analysis to derive a predictive model that incorporates all of the existing predictor variables, which would allow us to identify the relative importance of each variable and potentially create a new, composite variable that represents the combined effect of all predictors.
 
-
-## Data Exploration
-
+**Insert Explanation of Models**
 
 
-## Visualization
+### Visualization
+* Identify the scientific questions we can ask about the data.
+* Create new variables & information given the existing variables in the dataset.
+* Write custom functions to transform data
 
-## Descriptive Statistics
+### Descriptive Statistics
+* Present the data in different types of tables, diagrams, and find all descriptive stats (mean, median, mode, std.dev, etc.,)
+* 3 numerical summary tables and 3 graphs
 
-## Analysis
+### Analysis
+* Discuss at least one bootstrap confidence interval, at least one hypothesis test, and two linear models trained on all the data (include at least one scatter-plot with a regression line). Compare the two linear models in terms of test mean square error (train both using the same subset of all the data called training data, and form the test mean square error using the rest of the data, called test data). 
 
-### Quantify Uncertainty
 
--   Bootstrap Confidence Intervals
-
-## Discussion
-
-## 
+## Discussion + Conclusion
+* Write a clear description of the results from the previous sections. Do not forget to address the research questions that you posed in the introduction section. Make sure to pose possible questions based on graphs, tables, and other inferential results.
 
 ## References
+* List of all books, journals, web sites, videos referenced.
+* Use footnotes for in-line references (see sample project)
 
 ## Appendix
+* All code goes here.
