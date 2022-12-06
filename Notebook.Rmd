@@ -229,6 +229,29 @@ total_favstats
     using the same subset of all the data called training data, and form
     the test mean square error using the rest of the data, called test
     data).
+    
+```{r warning=FALSE}
+
+
+data <- insurance_policy %>% 
+  group_by(hours_per_week, value_flag) %>%
+  summarise(scoreHoursperWeek = mean(score))
+
+model <- lm(data$scoreHoursperWeek ~ data$hours_per_week)
+
+  
+
+data %>%
+  ggplot() +
+  geom_point(aes(x = hours_per_week, 
+                 y = scoreHoursperWeek, color = value_flag)) +
+  labs(title = "Age of people with insurance  versus education number",
+       x = "Hours Worked Per Week", y = "Score") +
+  geom_abline(intercept = model$coefficients[1],
+              slope = model$coefficients[2], 
+              color="red")
+    
+    
 
 ## Discussion + Conclusion
 
