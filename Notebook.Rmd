@@ -1,5 +1,5 @@
 ---
-title: "Insurance Policy"
+title: "Determining Insurance Policyholder Value"
 author: "Ted Zybin, Rohit Nair, Ibrahim Alwishah"
 date:   "`r Sys.Date()`"
 output: html_document
@@ -9,7 +9,20 @@ editor_options:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+#knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = FALSE, 
+                      results = "hide",
+                      warning = FALSE,
+                      message = FALSE
+                      )
+
+# to override these defaults to make a certain chunk's output show up
+# you need to write results="markup" in that particular cell opening, 
+# so for instance your cell would look like this
+#
+# ```{r results = "markup"}
+# code whose _output_ you want to see
+# ```
 ```
 
 ## External Requirements
@@ -170,6 +183,24 @@ other ML models to predict policyholder value)**
 -   Present the data in different types of tables, diagrams, and find
     all descriptive stats (mean, median, mode, std.dev, etc.,)
 -   3 numerical summary tables and 3 graphs
+
+```{r results="markup"}
+favstats_vec = c()
+columns = colnames(num_df)
+
+total_favstats = data.frame()
+
+# row binding favstats for each column in num_df
+for (i in 1:ncol(num_df)){
+  total_favstats <- rbind(total_favstats, favstats(num_df[,i]))
+}
+
+# column binding variable names
+total_favstats <- cbind(names = columns, total_favstats)
+rownames(total_favstats) <- NULL
+
+total_favstats
+```
 
 
 ### Visualization
