@@ -31,6 +31,48 @@ insurance_data <- read.csv("Insurance_policy.csv")
 knitr::kable(head(insurance_data))
 ```
 
+## Data Preparation
+
+### Count and Remove Some Missing Values as Appropriate (NAs)
+
+```{r}
+dim(insurance_data);
+# summary to see if there are any missing values
+summary(insurance_data);
+# number of missing values in a clearer fashion
+colSums( is.na(insurance_data) );
+# how many rows have 0 NAs
+sum( complete.cases(insurance_data) );
+# how many rows are incomplete?
+sum( !complete.cases(insurance_data) )
+```
+
+### Data Transformation
+
+```{r}
+# check that all relevant variables are factors
+str(insurance_data);
+# setting marital status, occupation, and value flag as factors
+insurance_data$marital_status = as.factor(insurance_data$marital_status);
+insurance_data$occupation = as.factor(insurance_data$occupation);
+insurance_data$value_flag = as.factor(insurance_data$value_flag);
+str(insurance_data)
+```
+```{r}
+# filtering out individuals less than 25 years of age and with a cap gain of 0.
+num_df <- insurance_data %>%
+  select(age,education_num,cap_gain,
+         hours_per_week,score) %>%
+  filter(age >= 25, cap_gain != 0) %>%
+  arrange(age)
+
+# all data fields for the studied population
+all_df <- insurance_data %>%
+  select(age,education_num,marital_status,
+         occupation,cap_gain,hours_per_week,score,value_flag) %>%
+  filter(age >= 25, cap_gain != 0)
+```
+
 ## Research Question
 
 How do the provided variables associate with the prediction that a
@@ -72,7 +114,9 @@ Based on the data provided, the factors of interest include:
 -   The age of the prospective policyholder
 
 -   A numerical indicator of the amount of education that a policyholder
-    has \* Marital status of the policyholder
+    has
+    
+-   Marital status of the policyholder
 
 -   Occupation of the policyholder
 
@@ -119,18 +163,22 @@ interval and doing hypothesis testing**
 chose to use a support vector machine for multiclass classification over
 other ML models to predict policyholder value)**
 
-### Visualization
-
--   Identify the scientific questions we can ask about the data.
--   Create new variables & information given the existing variables in
-    the dataset.
--   Write custom functions to transform data
+## Exploratory Data Analysis
 
 ### Descriptive Statistics
 
 -   Present the data in different types of tables, diagrams, and find
     all descriptive stats (mean, median, mode, std.dev, etc.,)
 -   3 numerical summary tables and 3 graphs
+
+
+### Visualization
+
+-   Identify the scientific questions we can ask about the data.
+-   Create new variables & information given the existing variables in
+    the dataset.
+-   Write custom functions to transform data
+-   3 graphs
 
 ### Analysis
 
