@@ -1,0 +1,19 @@
+Risk assessment is a critical aspect of the insurance industry, as it allows companiesto accurately assess the likelihood of a policyholder filing a claim and to set premiums accordingly. By identifying high value policyholders, insurance companies can prioritize providing them with the best possible products and services, leading to increased customer satisfaction and loyalty. Additionally, accurately predicting which policyholders are likely to be low value can help the company make informed decisions about which potential customers to accept or reject. This can help the company avoid accepting high-risk policyholders who are likely to file costly claims, ultimately leading to improved financial performance. Marginal improvements in risk assessment techniques can therefore have a significant impact on the overall success of an insurance company.
+
+In this study, we will explore the relationship between various predictor variables and the target variable of whether an individual is considered a "high value" or "low value" policyholder by an insurance company. We have been provided with data on past policyholders, including their age, level of education, marital status, occupation, capital gains, hours worked per week, and an insurance score. Using this data, we will construct a model that can accurately predict whether a prospective policyholder will be of high or low value to the company. While predictive accuracy is of utmost importance, we will also strive to interpret our results in a way that makes intuitive sense. For the purposes of this analysis, we will only consider individuals who are 25 years of age or older.
+
+Based on the data provided, the factors of interest include:
+* The age of the prospective policyholder
+* A numerical indicator of the amount of education that a policyholder has
+* Marital status of the policyholder
+* Occupation of the policyholder
+* Capital gains recorded on the investments of the policyholder
+* The number of hours worked per week by the policyholder
+* The proprietary insurance score of the policyholder
+
+Furthermore, we can synthesize new variables from the existing one that would prove useful in ultimately predicting that value of a potential policyholder.
+* The ratio of capital gains to hours worked per week, which could provide insight into the policyholder's investment habits and financial success. 
+* A variable which captures the effect of increasing age on the value of education
+* Use regression analysis to derive a predictive model that incorporates all of the existing predictor variables, which would allow us to identify the relative importance of each variable and potentially create a new, composite variable that represents the combined effect of all predictors.
+
+One potential approach to identifying the most relevant predictor variables in this analysis is to use feature selection methods such as recursive feature elimination. This technique involves recursively removing predictors one at a time, building a model with the remaining predictors at each step, and evaluating the model's performance. We can then compare the performance of the model with and without each predictor to determine its importance. Additionally, we could use regression analysis to determine the strength of the relationship between each predictor and the target variable. This would allow us to identify which predictors have a strong, statistically significant effect on the likelihood of a policyholder being high value. By combining the results of these two methods, we can identify the most important predictors and use them to construct a highly accurate predictive model.
