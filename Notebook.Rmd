@@ -253,7 +253,6 @@ ggplot(scores_by_valueflag, aes(x=occupation, y=score)) +
 #### Value Flags by Age, Based on Occupation
 
 
-
 ### Analysis
 
 -   Discuss at least one bootstrap confidence interval, at least one
@@ -263,6 +262,11 @@ ggplot(scores_by_valueflag, aes(x=occupation, y=score)) +
     using the same subset of all the data called training data, and form
     the test mean square error using the rest of the data, called test
     data).
+    
+#### Bootstrap Confidence Interval
+
+
+
     
 ```{r warning=FALSE}
 
