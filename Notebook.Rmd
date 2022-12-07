@@ -147,7 +147,7 @@ policyholder.
     provide insight into the policyholder's investment habits and
     financial success.
 
--   A variable which captures the effect of increasing age on the value
+-   A variable which captures the effect of increasing age on the value 
     of education
 
 -   Use regression analysis to derive a predictive model that
@@ -250,7 +250,10 @@ all_df %>%
   ylab("Average Score")
 ```
 
-The idea behind this graph is to show how age may play a part in someone's score. Since the insurance score is a proprietary value, it is expected to highlight policyholder trustworthiness. Assumption 
+The idea behind this graph is to show how age may play a part in someone's score. 
+Since the insurance score is a proprietary value, it is expected to highlight 
+policyholder trustworthiness. It was assumed that middle-aged policyholders would have a higher score. However, this was not the case. There is high variability
+
 
 ### Distribution of Policyholder Scores by Occupation
 ```{r}
@@ -436,8 +439,53 @@ data %>%
 
 
 
-### Regression : Value_Flag vs. 
+### Regression Models
 
+``` {r}
+all_data <- all_df %>%
+  mutate(cap_hours_ratio = cap_gain/hours_per_week, 
+         is_high = as.integer(value_flag=="High")) %>%
+  select(age,education_num, cap_gain, hours_per_week,cap_hours_ratio,
+         is_high,value_flag)
+
+# find relationship betwen age and education_num
+age_data <- all_data %>%
+  group_by(age,value_flag) %>%
+  summarize(avg_ed_num = mean(education_num))
+
+# 70 - 30 train test split
+train_test_split <- sample(c(TRUE,FALSE), nrow(age_data),replace=TRUE, 
+                           prob=c(0.7,0.3))
+
+train_data <- age_data[train_test_split,]
+test_data <- age_data[!train_test_split,]
+
+# regression model (High)
+train_data_high <- train_data %>%
+  filter(value_flag=="High")
+
+high_model = lm(train_data_high$avg_ed_num ~ train_data_high$age, data = train_data_high)
+
+# regression model (Low)
+train_data_low <- train_data %>%
+  filter(value_flag=="Low")
+
+low_model = lm(train_data_low$avg_ed_num ~ train_data_low$age, data =
+                train_data_low)
+
+
+# fitted plot
+ggplot(train_data,aes(x=age,y=avg_ed_num, color=value_flag))+
+  geom_point() +
+  xlab("Age of Policyholder") +
+  ylab("Average Education Level") +
+  geom_abline(intercept = high_model$coefficients[1],
+              slope = high_model$coefficients[2],
+              color = "red") +
+  geom_abline(intercept = low_model$coefficients[1],
+              slope = low_model$coefficients[2],
+              color = "blue")
+```
 
 
 
