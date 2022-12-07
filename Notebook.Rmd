@@ -234,9 +234,26 @@ total_favstats
 -   Write custom functions to transform data
 -   3 graphs
 
+
+### Average Score vs. Age
+```{r}
+# Graph used to compare age and average score.
+# If you notice the variability it may be due to the short range on the y-axis
+
+all_df %>%
+  group_by(age) %>%
+  summarize(Average_score_by_age = mean(score, na.rm = T)) %>%
+  ggplot(aes(x = age, y=Average_score_by_age)) +
+  geom_line(color = "red") +
+  ggtitle("Average Score Vs. Age")+
+  xlab("Age") +
+  ylab("Average Score")
+```
+
+
 #### Distribution of Policyholder Scores by Occupation
 ```{r}
-scores_by_value_flag <- df %>%
+scores_by_value_flag <- all_df %>%
   filter(age >= 25) %>%
   select(occupation,score,value_flag) %>%
   mutate_at(vars(occupation,value_flag),list(factor))
@@ -267,18 +284,6 @@ ggplot(data = age_value_by_occupation, mapping =
 
 
 
-### Age Group and Education Level
-
-```{r}
-insurancedata %>%
-  group_by(age, value_flag) %>%
-  summarise(averageeduc = mean(education_num)) %>%
-  ggplot() +
-  geom_point(aes(x = age, y = averageeduc, colour = value_flag )) +
-  labs(title = "The Relationship Between The Age Group And The Education 
-       Level With Respect To The Flag Value") +
-  xlab("Age") + ylab("Average Education Level")
-```
 
 ## Analysis
 The analysis begins with a confidence interval analysis, to study the the effects that capital gains and age have on the value flag of clients. The principle components of this data set are:
