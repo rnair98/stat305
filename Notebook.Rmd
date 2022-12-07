@@ -250,10 +250,9 @@ all_df %>%
   ylab("Average Score")
 ```
 
-The idea behind this grap
+The idea behind this graph is to show how age may play a part in someone's score. Since the insurance score is a proprietary value, it is expected to highlight policyholder trustworthiness. Assumption 
 
-
-#### Distribution of Policyholder Scores by Occupation
+### Distribution of Policyholder Scores by Occupation
 ```{r}
 scores_by_value_flag <- all_df %>%
   filter(age >= 25) %>%
@@ -269,7 +268,7 @@ ggplot(scores_by_value_flag, aes(x=occupation, y=score)) +
 ```
 
 
-#### Value Flags by Age, Based on Education
+### Value Flags by Age, Based on Education
 ```{r}
 # getting value_flag counts for individuals of a certain age and occupation
 age_value_by_occupation <- all_df %>%
@@ -335,7 +334,7 @@ sample = population %>%
 sample_n(size = 200,replace = FALSE)
 
 bootstrap_samplemeans <- do(1000)*mean(~cap_gain,
-data = sample_n(population,size=200,
+data = sample_n(population,size = 200,
 replace = TRUE))
 bootstrap_samplemeans <- bootstrap_samplemeans %>%
 rename(boostrap_samplemeans = mean)
@@ -349,7 +348,7 @@ research.
 
 
 
-## Hypothesis Testing
+### Hypothesis Testing
 
 The average capital gains value within a sample of this population is assumed to be greater than $20000 USD. Is this supported by the data?
 
@@ -413,7 +412,7 @@ Since the p-value is greater than 0.05, We fail to reject the null hypothesis. T
     data).
     
 
-#### Bootstrap Confidence Interval
+### Bootstrap Confidence Interval
 
 ```{r warning=FALSE, results = "markup"}
 
@@ -432,8 +431,18 @@ data %>%
        x = "Hours Worked Per Week", y = "Score") +
   geom_abline(intercept = model$coefficients[1],
               slope = model$coefficients[2], 
-              color="red")
+              color ="red")
 ```
+
+
+
+### Regression : Value_Flag vs. 
+
+
+
+
+
+
 
 ## Discussion + Conclusion
 
