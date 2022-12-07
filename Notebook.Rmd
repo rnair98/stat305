@@ -1,10 +1,12 @@
 ---
 title: "Determining Insurance Policyholder Value"
 author: "Ted Zybin, Rohit Nair, Ibrahim Alwishah"
-date:   "`r Sys.Date()`"
-output: html_document
-editor_options: 
-  markdown: 
+date: "`r Sys.Date()`"
+output:
+  pdf_document: default
+  pdf: default
+editor_options:
+  markdown:
     wrap: 72
 ---
 
@@ -175,19 +177,21 @@ The data set has 48842 rows and 8 columns, above it also shows the mean and max
 of different categories using the 'summary' function. The data set also does not
 have NAs or incomplete rows.
 
-This data set contains information for an unspecified insurance provider. The data 
-recorded is categorized by age, education number which is a score that is a numerical 
-value given based of their level of education, marital status, occupation, capital 
-gain on investments, and value flag which is an integer of a high value customer 
+This data set contains information for an unspecified insurance provider. The 
+data recorded is categorized by age, education number which is a score that is 
+a numerical value given based of their level of education, marital status, 
+occupation, capital gain on investments, and value flag which is an integer of 
+a high value customer 
 and low value customer.
 
-The variables used in the data are age which is a numerical variable that is taken 
-in years, education number is a numerical value showing the level of education of 
-the customer, marital status is a seven level variable that tell us their relationship 
-status, occupation is 6 split into 6 groups that there is no specific meaning to except 
-the sixth group which indicates the occupation is not known, capital gain is a numerical 
-value that is recording on investments, and hours per week which is a number recorded 
-in hours of the amount of work customers work. 
+The variables used in the data are age which is a numerical variable that is 
+taken in years, education number is a numerical value showing the level of 
+education of the customer, marital status is a seven level variable that tell 
+us their relationship status, occupation is 6 split into 6 groups that there is 
+no specific meaning to except the sixth group which indicates the occupation is 
+not known, capital gain is a numerical value that is recording on investments, 
+and hours per week which is a number recorded in hours of the amount of work 
+customers work. 
 
 ## Exploratory Data Analysis
 
@@ -218,9 +222,9 @@ total_favstats
 ```
 
 #### Numerical Summary II
-```{r}
+```{r results="markup"}
 num_sum <- insurance_data %>%
-  filter(age >= 25, cap_gain != 0) %>%
+  filter(age >= 25, cap_gain > 0) %>%
   summarize(
     avg_education_num = mean(education_num),
     avg_cap_gain = mean(cap_gain)
@@ -248,7 +252,16 @@ all_df %>%
 
 The idea behind this graph is to show how age may play a part in someone's score. 
 Since the insurance score is a proprietary value, it is expected to highlight 
-policyholder trustworthiness. It was assumed that middle-aged policyholders would have a higher score. However, this was not the case. The line plays an optical illusion which makes this seem as though it is very static while if you play close attention the y-axis is ranging from 59-61.5, so the average score does not have much variance but only appeasrs that way because of how the graph is skewed. To go in deeper depth taking a look at the people at the older ages where we see the variablity, there arent many to record on, this causes the average to be seen as skewed. We can deduct from this that the average score when taking into account age does not play a major role in the data as there isn't any major chagnes in the average score
+policyholder trustworthiness. It was assumed that middle-aged policyholders 
+would have a higher score. However, this was not the case. The line plays an 
+optical illusion which makes this seem as though it is very static while if you 
+play close attention the y-axis is ranging from 59-61.5, so the average score 
+does not have much variance but only appeases that way because of how the graph 
+is skewed. To go in deeper depth taking a look at the people at the older ages 
+where we see the variability, there rent many to record on, this causes the 
+average to be seen as skewed. We can deduct from this that the average score 
+when taking into account age does not play a major role in the data as there 
+isn't any major changes in the average score
 
 
 ### Distribution of Policyholder Scores by Occupation
@@ -266,6 +279,15 @@ ggplot(scores_by_value_flag, aes(x=occupation, y=score)) +
   ggtitle("Distribution of Scores by Occupation")
 ```
 
+The graph above explicates the association between type of occupation and score 
+according to the value flag they were labeled with. It’s shown that the median 
+scores for all types of occupations never go above 60 for those labeled with 
+low. As this graph is plotting the categorical variable of occupation group 
+against numerical variable insurance score, we see that the insurance score 
+plays an important part in choosing a high value client. The groups that we 
+categorized by the value of high rather than low always had a insurance score 
+higher than the low value client. This can help us infer that with a higher 
+insurance score comes a higher likely hood that the client is a high value one.
 
 ### Value Flags by Age, Based on Education
 ```{r}
@@ -284,6 +306,15 @@ ggplot(data = age_value_by_occupation, mapping =
   ggtitle("Value_Flag by Age, based on Occupation") +
   facet_wrap(~occupation, nrow=2)
 ```
+
+The graph above looks at the total incidence of each value_flag at all ages 
+present in dataset, while divided into facets based on the type of occupation. 
+For Groups 1-3, there’s a higher number of people classified as low for the 
+bulk of the recorded ages. Groups 4, 5, and NA, all do not seem to have much 
+variablity.Group 4 shows the high and low value flagged clients mixed together, 
+and the same can be said about group NA. We can conclude from these graphs
+that the age does not play a major role in the groups when observing the values 
+flags of clients.
 
 ### Synthesis of New Variables
 ```{r}
@@ -359,17 +390,21 @@ research.
 
 ### Hypothesis Testing
 
-The average capital gains value within a sample of this population is assumed to be greater than $20000 USD. Is this supported by the data?
+The average capital gains value within a sample of this population is assumed 
+to be greater than $20000 USD. Is this supported by the data?
 
-H0 : The average capital gains amount for an individual equal to or above the age of 25 flagged as being high value is equal to $20000.
+H0 : The average capital gains amount for an individual equal to or above the 
+age of 25 flagged as being high value is equal to $20000.
 
-Ha : The average capital gains amount for an individual equal to or above the age of 25 flagged as being high value is not equal to $20000.
+Ha : The average capital gains amount for an individual equal to or above the 
+age of 25 flagged as being high value is not equal to $20000.
 
 H0 : µ = 20000
 
 Ha : µ != 20000
 
-To compute the p-value, we assume that the null hypothesis is true and we’ll set the significance level at 5%.
+To compute the p-value, we assume that the null hypothesis is true and we’ll 
+set the significance level at 5%.
 
 ```{r results = "markup"}
 # claimed value of the mean
@@ -487,15 +522,38 @@ mse_low
 
 ## Using a Support Vector Machine Model
 
-In order to synthesize the provided data and get a feasible predictive model, we can use an SVM model. SVM models can handle high-dimensional data, making them well-suited for situations where there are many predictor variables. In the insurance industry, policyholders may have many different characteristics that could affect their value, such as their age, education level, occupation, and insurance score. An SVM model could help to accurately predict the value of a policyholder based on these variables.
+In order to synthesize the provided data and get a feasible predictive model, 
+we can use an SVM model. SVM models can handle high-dimensional data, making 
+them well-suited for situations where there are many predictor variables. 
+In the insurance industry, policyholders may have many different characteristics 
+that could affect their value, such as their age, education level, occupation, 
+and insurance score. An SVM model could help to accurately predict the value of 
+a policyholder based on these variables.
 
-SVM models can provide high predictive accuracy, which is important for the marketing department of an insurance company. By accurately predicting the value of a policyholder, the marketing department can make more informed decisions about which prospective customers to target, leading to higher profits for the company.
+SVM models can provide high predictive accuracy, which is important for the 
+marketing department of an insurance company. By accurately predicting the 
+value of a policyholder, the marketing department can make more informed 
+decisions about which prospective customers to target, leading to higher 
+profits for the company.
 
-SVM models are known for their ability to handle data with complex, non-linear relationships between the variables. In the insurance industry, the relationships between the predictor variables and the target variable (policyholder value) are likely to be complex and non-linear. An SVM model could help to accurately capture these relationships and make accurate predictions.
+SVM models are known for their ability to handle data with complex, 
+non-linear relationships between the variables. In the insurance industry, 
+the relationships between the predictor variables and the target variable 
+(policyholder value) are likely to be complex and non-linear. An SVM model 
+could help to accurately capture these relationships and make accurate predictions.
 
-SVM models are robust to noise and outliers in the data, which can be common in real-world datasets. In the insurance industry, the data on policyholders is likely to be noisy and contain outliers, such as policyholders with unusually high or low values. An SVM model could help to accurately predict the value of policyholders even in the presence of noise and outliers.
+SVM models are robust to noise and outliers in the data, which can be common 
+in real-world datasets. In the insurance industry, the data on policyholders 
+is likely to be noisy and contain outliers, such as policyholders with 
+unusually high or low values. An SVM model could help to accurately predict 
+the value of policyholders even in the presence of noise and outliers.
 
-
+Ultimately, using an SVM model could be beneficial for an insurance company 
+because it can handle high-dimensional data with complex, non-linear 
+relationships, provide high predictive accuracy, and be robust to noise 
+and outliers in the data. These qualities could help the marketing department 
+of the insurance company to make more informed decisions about which prospective 
+customers to target, leading to higher profits for the company.
 
 ## Discussion + Conclusion
 
@@ -554,9 +612,7 @@ insurance company, but are considered to be less important.
 
 ## References
 
--   List of all books, journals, web sites, videos referenced.
--   Use footnotes for in-line references (see sample project)
+- "Introduction to Machine Learning with R" by Brett Lantz
+- RDocumentation - e1071 (version 1.7-12)
 
-## Appendix
 
--   All code goes here.
