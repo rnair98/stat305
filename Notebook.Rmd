@@ -440,7 +440,9 @@ data %>%
 
 
 ### Regression Models
+The regression models shown are both taken on education levels and show the variability that education level gives when predicting a high value client. Both regression models show that with high eduaction it usually poses to be a high value client. 
 
+This graph shows that a higher eduation level is oftent times a high value client. We see that by taking the average education level and plot it against age we have a line of best fit that shows a linear increase for eduaation level of high value clients. While in the same graph we a see a negative linear line that shows education level is less in low value clients 
 ``` {r}
 all_data <- all_df %>%
   mutate(cap_hours_ratio = cap_gain/hours_per_week, 
@@ -487,10 +489,26 @@ ggplot(train_data,aes(x=age,y=avg_ed_num, color=value_flag))+
               color = "blue")
 ```
 
+In this graph it shows how the education level and higher average capital gain is most likly to be a high value client.
 
+# model performance
+```{r}
+pop_data <- population %>%
+group_by(education_num) %>%
+summarize(avg_cap_gain = mean(cap_gain))
 
+model = lm(avg_cap_gain ~ poly(education_num,3),data = pop_data)
 
-
+ggplot(pop_data, aes(x = education_num,y = avg_cap_gain)) +
+geom_point() +
+stat_smooth(method = lm, formula = y ~ poly(x, 3)) +
+geom_point(aes(x = education_num,
+y = model$fitted.values),
+color = "red") +
+ylab("Average Capital Gains in USD") +
+xlab("Education Level") +
+labs(title = "Average Capital Gains versus Education Level")
+```
 
 ## Discussion + Conclusion
 
