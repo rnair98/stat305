@@ -496,6 +496,14 @@ average capital gain of $20000. The information we have now can be used to
 conclude that age and capital gain do play a role in predicting high value 
 clients. 
 
+As an answer to our research question, we think that it is essential to say 
+that there are different factors and variables that associate with a prediction 
+that a random customer would be considered a high value client. Arguments like age, 
+education level and score play a crucial role for the insurance company and clients’ 
+status. Other variables like marital status, occupation, capital gain and working hours
+per week are also taken into consideration by agents of the insurance company, 
+but are considered to be less important. 
+
 ## References
 
 -   List of all books, journals, web sites, videos referenced.
