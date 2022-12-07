@@ -268,6 +268,18 @@ insurancedata %>%
 ```
 
 ## Analysis
+The analysis begins with a confidence interval analysis, to study the the effects that capital gains and age have on the value flag of clients. The principle components of this data set are:
+
+ 1. Age
+ 2. Education number
+ 3. Marital status
+ 4. occupation
+ 5. capital gain
+ 6. Hours per week
+ 7. Score
+ 8. Value flag
+ 
+Out of these components of the data set the population of age and capital gain is focused on to conclude if they play a rule in the categorizing a client as high value. 
 
 Our bootstrap confidence interval is taken on individuals older than or equal to the age 25 and have a capital gain greater than 0 USD, with a high value flag. We were given a population size of 2462.
 
