@@ -409,6 +409,16 @@ data %>%
     Do not forget to address the research questions that you posed in
     the introduction section. Make sure to pose possible questions based
     on graphs, tables, and other inferential results.
+    
+    	This is a general overview of what risk assessment for an insurance policyholder would look like. With the data provided, we were able to select pertinent variables, both numerical and categorical, and identify the various associations between the variables which would contribute to the predictions of a policyholder being high or low value. Graphs were made to further analyze patterns. Bootstrap hypothesis testing was used to look at sample distributions of capital gains and affirm its connection to value flagging. The association between level of education and capital gains also was explored in order to ascertain their relative weights within a possible prediction model. In the end, based on the nature of the variables provided and the associations found, a support vector machine model was used to predict whether a potential customer would be high or low value.
+	The most important part of our project was to trace any relationship between the flag status of a client and other variables presented in the table.  But why is it essential to identify high-value customers? Here are presented several reasons to look for high value customers: 	
+  - Knowing your high-value customers helps you to plan ahead and make better decisions about future projects.
+  - You can maximize their value and develop longer-lasting relationships.
+  - You can focus your marketing and acquisition strategies on similar customers using lookalike audiences.
+  - Delighting these customers can create a positive feedback loop, where they bring in more business for your company.
+
+	We noticed that there is a relationship between the flag status of a client and his/her education level. Clients, whose degree was higher than 10, were considered to be «high» value clients. Despite the fact that the insurance company made some exceptions, it would be right to say that the agents of the insurance company have a specific algorithm, which helps them group their clients with respect to the level of their degree.  Besides, it was proven that clients with a score less than 61 tend to be considered as low value clients.
+	
 
 ## References
 
