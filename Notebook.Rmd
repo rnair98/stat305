@@ -474,8 +474,8 @@ low_model = lm(train_data_low$avg_ed_num ~ train_data_low$age, data =
                 train_data_low)
 
 
-# fitted plot
-ggplot(train_data,aes(x=age,y=avg_ed_num, color=value_flag))+
+# fitted plot on test_data
+ggplot(test_data,aes(x=age,y=avg_ed_num, color=value_flag))+
   geom_point() +
   xlab("Age of Policyholder") +
   ylab("Average Education Level") +
@@ -485,6 +485,18 @@ ggplot(train_data,aes(x=age,y=avg_ed_num, color=value_flag))+
   geom_abline(intercept = low_model$coefficients[1],
               slope = low_model$coefficients[2],
               color = "blue")
+
+# evaluation
+test_data_high <- test_data %>%
+  filter(value_flag == "High")
+test_data_low <- test_data %>%
+  filter(value_flag == "Low")
+
+mse_high = mean( (test_data_high$avg_ed_num - predict(high_model, newdata  = test_data_high))^2  )
+mse_low = mean( (test_data_low$avg_ed_num - predict(low_model, newdata = test_data_low))^2 )
+
+mse_high
+mse_low
 ```
 
 
