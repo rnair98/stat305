@@ -251,6 +251,19 @@ ggplot(scores_by_valueflag, aes(x=occupation, y=score)) +
 
 
 #### Value Flags by Age, Based on Education
+```{r}
+# getting value_flag counts for individuals of a certain age and occupation
+age_value_by_occupation <- all_df %>%
+  filter(age >= 25) %>%
+  select(age,occupation,value_flag) %>%
+  group_by(value_flag,occupation,age) %>%
+  summarize(count=count(value_flag == "High"| value_flag == "Low"))
+# facet wrap
+ggplot(data = age_value_by_occupation, mapping =
+         aes(x = age, y = count, color = value_flag)) +
+  geom_point() +
+  xlab("Age (Years)")
+```
 
 
 
@@ -280,8 +293,6 @@ ggplot(population, aes(x = cap_gain)) +
   ggtitle("Population Distribution of Capital Gains") + 
   xlab("Capital Gain") + 
   ylab("Density")
-
-
 ```
  
 The graph shows the skew we have with the capital gain. We can infer that there is not much variability after 25000 for capital gain, although we do see a small spike when reaching 100000.
