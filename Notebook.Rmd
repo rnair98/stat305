@@ -250,6 +250,8 @@ all_df %>%
   ylab("Average Score")
 ```
 
+The idea behind this grap
+
 
 #### Distribution of Policyholder Scores by Occupation
 ```{r}
@@ -289,7 +291,9 @@ ggplot(data = age_value_by_occupation, mapping =
 
 
 ## Analysis
-The analysis begins with a confidence interval analysis, to study the the effects that capital gains and age have on the value flag of clients. The principle components of this data set are:
+The analysis begins with a confidence interval analysis, to study the the 
+effects that capital gains and age have on the value flag of clients. The 
+principle components of this data set are:
 
  1. Age
  2. Education number
@@ -300,9 +304,13 @@ The analysis begins with a confidence interval analysis, to study the the effect
  7. Score
  8. Value flag
  
-Out of these components of the data set the population of age and capital gain is focused on to conclude if they play a rule in the categorizing a client as high value. 
+Out of these components of the data set the population of age and capital gain 
+is focused on to conclude if they play a rule in the categorizing a client as 
+high value. 
 
-Our bootstrap confidence interval is taken on individuals older than or equal to the age 25 and have a capital gain greater than 0 USD, with a high value flag. We were given a population size of 2462.
+Our bootstrap confidence interval is taken on individuals older than or equal 
+to the age 25 and have a capital gain greater than 0 USD, with a high value 
+flag. We were given a population size of 2462.
 
 ```{r}
 population <- df %>%
@@ -315,7 +323,9 @@ ggplot(population, aes(x = cap_gain)) +
   ylab("Density")
 ```
  
-The graph shows the skew we have with the capital gain. We can infer that there is not much variability after 25000 for capital gain, although we do see a small spike when reaching 100000.
+The graph shows the skew we have with the capital gain. We can infer that there 
+is not much variability after 25000 for capital gain, although we do see a small 
+spike when reaching 100000.
 
 
 ```{r}
@@ -332,7 +342,10 @@ rename(boostrap_samplemeans = mean)
 head(bootstrap_samplemeans)
 ```
 
-In the chart above we see the estimated summary taken on the sample population of those over the age of 25 who's capital gain is greater than 0. This data can be used to calculate errors and perform hypothesis test to further support our research.
+In the chart above we see the estimated summary taken on the sample population 
+of those over the age of 25 who's capital gain is greater than 0. This data can 
+be used to calculate errors and perform hypothesis test to further support our 
+research.
 
 
 
@@ -429,12 +442,30 @@ data %>%
     the introduction section. Make sure to pose possible questions based
     on graphs, tables, and other inferential results.
     
-    	This is a general overview of what risk assessment for an insurance policyholder would look like. With the data provided, we were able to select pertinent variables: both numerical and categorical. We identified various associations between the variables which could contribute to the predictions of a policyholder being high or low value. Graphs were made to analyze patterns. Bootstrap hypothesis testing was used to look at sample distributions of capital gains and affirm its connection to value flagging. The association between level of education and capital gains also was explored in order to ascertain their relative weights within a possible prediction model. In the end, based on the nature of the variables provided and the associations found, a support vector machine model was used to predict whether a potential customer would be high or low value.
-	The most important part of our project was to trace any relationship between the flag status of a client and other variables presented in the table.  But why is it essential to identify high-value customers? Here are presented several reasons to look for high value customers: 	
-  - Knowing your high-value customers helps you to plan ahead and make better decisions about future projects.
+    	This is a general overview of what risk assessment for an insurance 
+    	policyholder would look like. With the data provided, we were able to 
+    	select pertinent variables: both numerical and categorical. We identified 
+    	various associations between the variables which could contribute to the 
+    	predictions of a policyholder being high or low value. Graphs were made to 
+    	analyze patterns. Bootstrap hypothesis testing was used to look at sample 
+    	distributions of capital gains and affirm its connection to value 
+    	flagging. The association between level of education and capital gains 
+    	also was explored in order to ascertain their relative weights within a 
+    	possible prediction model. In the end, based on the nature of the 
+    	variables provided and the associations found, a support vector machine 
+    	model was used to predict whether a potential customer would be high or 
+    	low value.
+	The most important part of our project was to trace any relationship between 
+	the flag status of a client and other variables presented in the table.  But 
+	why is it essential to identify high-value customers? Here are presented 
+	several reasons to look for high value customers: 	
+  - Knowing your high-value customers helps you to plan ahead and make better 
+    decisions about future projects.
   - You can maximize their value and develop longer-lasting relationships.
-  - You can focus your marketing and acquisition strategies on similar customers using lookalike audiences.
-  - Delighting these customers can create a positive feedback loop, where they bring in more business for your company.
+  - You can focus your marketing and acquisition strategies on similar customers 
+    using lookalike audiences.
+  - Delighting these customers can create a positive feedback loop, where they 
+    bring in more business for your company.
 
 	We noticed that there is a relationship between the flag status of a client and his/her education level. Clients, whose degree was higher than 10, were considered to be «high» value clients. Despite the fact that the insurance company made some exceptions, it would be right to say that the agents of the insurance company have a specific algorithm, which helps them group their clients with respect to the level of their degree.  Besides, it was proven that clients with a score less than 61 tend to be considered as low value clients.
 	
