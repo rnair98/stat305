@@ -259,7 +259,7 @@ scores_by_value_flag <- all_df %>%
   mutate_at(vars(occupation,value_flag),list(factor))
 
 # boxplot showing distribution of scores by occupation
-ggplot(scores_by_valueflag, aes(x=occupation, y=score)) +
+ggplot(scores_by_value_flag, aes(x=occupation, y=score)) +
   geom_boxplot(aes(fill=value_flag))+
   xlab("Occupation (in Categorical Groups)") +
   ylab("Insurance Scores") +
@@ -279,7 +279,10 @@ age_value_by_occupation <- all_df %>%
 ggplot(data = age_value_by_occupation, mapping =
          aes(x = age, y = count, color = value_flag)) +
   geom_point() +
-  xlab("Age (Years)")
+  xlab("Age (Years)") +
+  ylab("count of Value_Flag") +
+  ggtitle("Value_Flag by Age, based on Occupation") +
+  facet_wrap(~occupation, nrow=2)
 ```
 
 
