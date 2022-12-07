@@ -169,14 +169,6 @@ These summary statistics can be used to inform the development of the
 predictive model, as well as to interpret and understand the results of
 the analysis.
 
-**Insert a general summary of why we're using a bootstrap confidence
-interval and doing hypothesis testing**
-
-**Insert Explanation of Models ---\> (Ultimately, a summary of why we
-chose to use a support vector machine for multiclass classification over
-other ML models to predict policyholder value)**
-
-
 ## Data Set Description
 
 The data set has 48842 rows and 8 columns, above it also shows the mean and max 
@@ -205,6 +197,8 @@ in hours of the amount of work customers work.
     all descriptive stats (mean, median, mode, std.dev, etc.,)
 -   3 numerical summary tables and 3 graphs
 
+#### Numerical Summary I
+
 ```{r results="markup"}
 favstats_vec = c()
 columns = colnames(num_df)
@@ -223,17 +217,19 @@ rownames(total_favstats) <- NULL
 total_favstats
 ```
 
-
+#### Numerical Summary II
+```{r}
+num_sum <- insurance_data %>%
+  filter(age >= 25, cap_gain != 0) %>%
+  summarize(
+    avg_education_num = mean(education_num),
+    avg_cap_gain = mean(cap_gain)
+  )
+knitr::kable(summary(data))
+```
 
 
 ### Visualization
-
--   Identify the scientific questions we can ask about the data.
--   Create new variables & information given the existing variables in
-    the dataset.
--   Write custom functions to transform data
--   3 graphs
-
 
 ### Average Score vs. Age
 ```{r}
@@ -289,8 +285,16 @@ ggplot(data = age_value_by_occupation, mapping =
   facet_wrap(~occupation, nrow=2)
 ```
 
+### Synthesis of New Variables
+```{r}
+all_data <- all_df %>%
+  mutate(cap_hours_ratio = cap_gain/hours_per_week, 
+         is_high = as.integer(value_flag=="High")) %>%
+  select(age,education_num, cap_gain, hours_per_week,cap_hours_ratio,
+         is_high,value_flag)
 
-
+head(all_data)
+```
 
 ## Analysis
 The analysis begins with a confidence interval analysis, to study the the 
@@ -304,7 +308,9 @@ principle components of this data set are:
  5. capital gain
  6. Hours per week
  7. Score
- 8. Value flag
+ 8. Value Flag
+ 9. Capital Gains to Hours Per Week Ratio
+ 
  
 Out of these components of the data set the population of age and capital gain 
 is focused on to conclude if they play a rule in the categorizing a client as 
@@ -314,7 +320,7 @@ Our bootstrap confidence interval is taken on individuals older than or equal
 to the age 25 and have a capital gain greater than 0 USD, with a high value 
 flag. We were given a population size of 2462.
 
-```{r}
+```{r results="markup"}
 population <- df %>%
   filter(age >= 25, cap_gain > 0, value_flag == "High") 
 
@@ -330,7 +336,7 @@ is not much variability after 25000 for capital gain, although we do see a small
 spike when reaching 100000.
 
 
-```{r}
+```{r results="markup"}
 set.seed(101)
 # select a sample, without replacement
 sample = population %>%
@@ -403,17 +409,16 @@ p_value <- sum(bootstrap$mean >= mean_sample)/1000
 cat("p-value is equal to:",p_value)
 ```
 
-Since the p-value is greater than 0.05, We fail to reject the null hypothesis. The data do not provide convincing evidence at the .05 significance level that the average capital gains value is not equal to 20000. As we fail to reject the null hypothesis, it is feasible to assume that those that are older than 25 and a high value policyholder are likely to have an average capital gain of $20000. The information we have now can be used to conclude that age and capital gain do play a role in predicting high value clients. The variable that we focus on with the test would be age in years greater than 25 and a capital gain greater than 0.
+Since the p-value is greater than 0.05, We fail to reject the null hypothesis. 
+The data do not provide convincing evidence at the .05 significance level that 
+the average capital gains value is not equal to 20000. As we fail to reject the 
+null hypothesis, it is feasible to assume that those that are older than 25 and 
+a high value policyholder are likely to have an average capital gain of $20000. 
+The information we have now can be used to conclude that age and capital gain 
+do play a role in predicting high value clients. The variable that we focus on 
+with the test would be age in years greater than 25 and a capital gain greater 
+than 0.
 
-
--   Discuss at least one bootstrap confidence interval, at least one
-    hypothesis test, and two linear models trained on all the data
-    (include at least one scatter-plot with a regression line). Compare
-    the two linear models in terms of test mean square error (train both
-    using the same subset of all the data called training data, and form
-    the test mean square error using the rest of the data, called test
-    data).
-    
 
 ### Bootstrap Confidence Interval
 
@@ -441,13 +446,7 @@ data %>%
 
 ### Regression Models
 
-``` {r}
-all_data <- all_df %>%
-  mutate(cap_hours_ratio = cap_gain/hours_per_week, 
-         is_high = as.integer(value_flag=="High")) %>%
-  select(age,education_num, cap_gain, hours_per_week,cap_hours_ratio,
-         is_high,value_flag)
-
+``` {r results="markup"}
 # find relationship betwen age and education_num
 age_data <- all_data %>%
   group_by(age,value_flag) %>%
@@ -464,7 +463,8 @@ test_data <- age_data[!train_test_split,]
 train_data_high <- train_data %>%
   filter(value_flag=="High")
 
-high_model = lm(train_data_high$avg_ed_num ~ train_data_high$age, data = train_data_high)
+high_model = lm(train_data_high$avg_ed_num ~ train_data_high$age, data = 
+                  train_data_high)
 
 # regression model (Low)
 train_data_low <- train_data %>%
@@ -505,11 +505,6 @@ mse_low
 
 
 ## Discussion + Conclusion
-
--   Write a clear description of the results from the previous sections.
-    Do not forget to address the research questions that you posed in
-    the introduction section. Make sure to pose possible questions based
-    on graphs, tables, and other inferential results.
 
 This is a general overview of what risk assessment for an insurance policyholder 
 would look like. With the data provided, we were able to select pertinent 
@@ -558,11 +553,11 @@ clients.
 
 As an answer to our research question, we think that it is essential to say 
 that there are different factors and variables that associate with a prediction 
-that a random customer would be considered a high value client. Arguments like age, 
-education level and score play a crucial role for the insurance company and clients’ 
-status. Other variables like marital status, occupation, capital gain and working hours
-per week are also taken into consideration by agents of the insurance company, 
-but are considered to be less important. 
+that a random customer would be considered a high value client. Arguments like 
+age,education level and score play a crucial role for the insurance company and 
+clients’ status. Other variables like marital status, occupation, capital gain 
+and working hours per week are also taken into consideration by agents of the 
+insurance company, but are considered to be less important. 
 
 ## References
 
