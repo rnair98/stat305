@@ -252,7 +252,7 @@ all_df %>%
 
 The idea behind this graph is to show how age may play a part in someone's score. 
 Since the insurance score is a proprietary value, it is expected to highlight 
-policyholder trustworthiness. It was assumed that middle-aged policyholders would have a higher score. However, this was not the case. There is high variability
+policyholder trustworthiness. It was assumed that middle-aged policyholders would have a higher score. However, this was not the case. The line plays an optical illusion which makes this seem as though it is very static while if you play close attention the y-axis is ranging from 59-61.5, so the average score does not have much variance but only appeasrs that way because of how the graph is skewed. To go in deeper depth taking a look at the people at the older ages where we see the variablity, there arent many to record on, this causes the average to be seen as skewed. We can deduct from this that the average score when taking into account age does not play a major role in the data as there isn't any major chagnes in the average score
 
 
 ### Distribution of Policyholder Scores by Occupation
