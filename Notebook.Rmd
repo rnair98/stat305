@@ -316,6 +316,8 @@ Out of these components of the data set the population of age and capital gain
 is focused on to conclude if they play a rule in the categorizing a client as 
 high value. 
 
+### Bootstrap Confidence Interval
+
 Our bootstrap confidence interval is taken on individuals older than or equal 
 to the age 25 and have a capital gain greater than 0 USD, with a high value 
 flag. We were given a population size of 2462.
@@ -419,35 +421,21 @@ do play a role in predicting high value clients. The variable that we focus on
 with the test would be age in years greater than 25 and a capital gain greater 
 than 0.
 
-
-### Bootstrap Confidence Interval
-
-```{r warning=FALSE, results = "markup"}
-
-data <- insurance_data %>% 
-  group_by(hours_per_week, value_flag) %>%
-  summarise(scoreHoursperWeek = mean(score))
-
-model <- lm(data$scoreHoursperWeek ~ data$hours_per_week)
-
-
-data %>%
-  ggplot() +
-  geom_point(aes(x = hours_per_week, 
-                 y = scoreHoursperWeek, color = value_flag)) +
-  labs(title = "Age of people with insurance versus education number",
-       x = "Hours Worked Per Week", y = "Score") +
-  geom_abline(intercept = model$coefficients[1],
-              slope = model$coefficients[2], 
-              color ="red")
-```
-
-
-
 ### Regression Models
 
+The regression models shown are both taken on education levels and show the 
+variability that education level gives when predicting a high value client and
+a low client.
+
+This graph below shows that a higher education level is often times a high value 
+client. We see that by taking the average education level and plot it against 
+age we have a line of best fit that shows a linear increase for education level 
+of high value clients. While in the same graph we a see a negative linear line 
+that shows education level is less in low value clients 
+
+
 ``` {r results="markup"}
-# find relationship betwen age and education_num
+# find relationship between age and education_num
 age_data <- all_data %>%
   group_by(age,value_flag) %>%
   summarize(avg_ed_num = mean(education_num))
@@ -498,8 +486,6 @@ mse_low = mean( (test_data_low$avg_ed_num - predict(low_model, newdata = test_da
 mse_high
 mse_low
 ```
-
-
 
 
 
