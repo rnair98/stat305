@@ -288,10 +288,8 @@ ggplot(data = age_value_by_occupation, mapping =
 ### Synthesis of New Variables
 ```{r}
 all_data <- all_df %>%
-  mutate(cap_hours_ratio = cap_gain/hours_per_week, 
-         is_high = as.integer(value_flag=="High")) %>%
-  select(age,education_num, cap_gain, hours_per_week,cap_hours_ratio,
-         is_high,value_flag)
+  mutate(cap_hours_ratio = cap_gain/hours_per_week) %>%
+  select(age,education_num, cap_gain, hours_per_week,cap_hours_ratio,value_flag)
 
 head(all_data)
 ```
@@ -487,6 +485,15 @@ mse_high
 mse_low
 ```
 
+## Using a Support Vector Machine Model
+
+In order to synthesize the provided data and get a feasible predictive model, we can use an SVM model. SVM models can handle high-dimensional data, making them well-suited for situations where there are many predictor variables. In the insurance industry, policyholders may have many different characteristics that could affect their value, such as their age, education level, occupation, and insurance score. An SVM model could help to accurately predict the value of a policyholder based on these variables.
+
+SVM models can provide high predictive accuracy, which is important for the marketing department of an insurance company. By accurately predicting the value of a policyholder, the marketing department can make more informed decisions about which prospective customers to target, leading to higher profits for the company.
+
+SVM models are known for their ability to handle data with complex, non-linear relationships between the variables. In the insurance industry, the relationships between the predictor variables and the target variable (policyholder value) are likely to be complex and non-linear. An SVM model could help to accurately capture these relationships and make accurate predictions.
+
+SVM models are robust to noise and outliers in the data, which can be common in real-world datasets. In the insurance industry, the data on policyholders is likely to be noisy and contain outliers, such as policyholders with unusually high or low values. An SVM model could help to accurately predict the value of policyholders even in the presence of noise and outliers.
 
 
 
