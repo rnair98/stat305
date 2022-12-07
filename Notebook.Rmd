@@ -267,7 +267,7 @@ insurancedata %>%
   xlab("Age") + ylab("Average Education Level")
 ```
 
-### Analysis
+## Analysis
 
 Our bootstrap confidence interval is taken on individuals older than or equal to the age 25 and have a capital gain greater than 0 USD, with a high value flag. We were given a population size of 2462.
 
