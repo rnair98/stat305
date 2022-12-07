@@ -457,7 +457,17 @@ company made some exceptions, it would be right to say that the agents of the
 insurance company have a specific algorithm, which helps them group their 
 clients with respect to the level of their degree.  Besides, it was proven 
 that clients with a score less than 61 tend to be considered as low value clients.
-    
+    Apart from that our team conducted a test hypothesis. Our initial hypothesis was 
+that the average capital gains amount for an individual equal to or above the age of 
+25 flagged as being high value equals $20000, while the alternative hypothesis claimed 
+that the average capital gains amount for an individual equal to or above the age of 25 
+flagged as being high value does not equal $20000. As we did the test, p-value turned out 
+to be more that 0.05 and that gave us enough evidence to claim that the initial hypothesis 
+should be accepted. In other words, we had enough statistical evidence to assume that those 
+who are older than 25 and are considered to be high value are likely to have an average 
+capital gain of $20000. The information we have now can be used to conclude that age and 
+capital gain do play a role in predicting high value clients. 
+
 ## References
 
 -   List of all books, journals, web sites, videos referenced.
