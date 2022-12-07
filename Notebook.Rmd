@@ -148,7 +148,7 @@ policyholder.
     financial success.
 
 -   A variable which captures the effect of increasing age on the value 
-    of education
+    of education.
 
 -   Use regression analysis to derive a predictive model that
     incorporates all of the existing predictor variables, which would
@@ -171,9 +171,8 @@ the analysis.
 
 ## Data Set Description
 
-The data set has 48842 rows and 8 columns, above it also shows the mean and max 
-of different categories using the 'summary' function. The data set also does not
-have NAs or incomplete rows.
+The data set has 48842 rows and 8 columns. These data sets are complete and have no missing values. The data set also does not
+have NAs.
 
 This data set contains information for an unspecified insurance provider. The data 
 recorded is categorized by age, education number which is a score that is a numerical 
@@ -189,13 +188,9 @@ the sixth group which indicates the occupation is not known, capital gain is a n
 value that is recording on investments, and hours per week which is a number recorded 
 in hours of the amount of work customers work. 
 
-## Exploratory Data Analysis
 
 ### Descriptive Statistics
 
--   Present the data in different types of tables, diagrams, and find
-    all descriptive stats (mean, median, mode, std.dev, etc.,)
--   3 numerical summary tables and 3 graphs
 
 #### Numerical Summary I
 
@@ -205,12 +200,12 @@ columns = colnames(num_df)
 
 total_favstats = data.frame()
 
-# row binding favstats for each column in num_df
+
 for (i in 1:ncol(num_df)){
   total_favstats <- rbind(total_favstats, favstats(num_df[,i]))
 }
 
-# column binding variable names
+
 total_favstats <- cbind(names = columns, total_favstats)
 rownames(total_favstats) <- NULL
 
@@ -218,7 +213,7 @@ total_favstats
 ```
 
 #### Numerical Summary II
-```{r}
+```{r results="markup"}
 num_sum <- insurance_data %>%
   filter(age >= 25, cap_gain != 0) %>%
   summarize(
@@ -232,7 +227,7 @@ knitr::kable(summary(data))
 ### Visualization
 
 ### Average Score vs. Age
-```{r}
+```{r results="markup"}
 # Graph used to compare age and average score.
 # If you notice the variability it may be due to the short range on the y-axis
 
@@ -248,17 +243,18 @@ all_df %>%
 
 The idea behind this graph is to show how age may play a part in someone's score. 
 Since the insurance score is a proprietary value, it is expected to highlight 
-policyholder trustworthiness. It was assumed that middle-aged policyholders would have a higher score. However, this was not the case. The line plays an optical illusion which makes this seem as though it is very static while if you play close attention the y-axis is ranging from 59-61.5, so the average score does not have much variance but only appeasrs that way because of how the graph is skewed. To go in deeper depth taking a look at the people at the older ages where we see the variablity, there arent many to record on, this causes the average to be seen as skewed. We can deduct from this that the average score when taking into account age does not play a major role in the data as there isn't any major chagnes in the average score
+policyholder trustworthiness. It was assumed that middle-aged policyholders would have a higher score. However, this was not the case. 
+The line plot plays an optical illusion which makes this seem as though it is very static while if you play close attention the y-axis is ranging from 59-61.5, so the average score does not have much variance but only appeasrs that way because of how the graph is skewed. 
+To go in deeper depth taking a look at the people at the older ages where we see the variablity, there arent many to record on, this causes the average to be seen as skewed. We can deduct from this that the average score when taking into account age does not play a major role in the data as there isn't any major chagnes in the average score
 
 
 ### Distribution of Policyholder Scores by Occupation
-```{r}
+```{r results="markup"}
 scores_by_value_flag <- all_df %>%
   filter(age >= 25) %>%
   select(occupation,score,value_flag) %>%
   mutate_at(vars(occupation,value_flag),list(factor))
 
-# boxplot showing distribution of scores by occupation
 ggplot(scores_by_value_flag, aes(x=occupation, y=score)) +
   geom_boxplot(aes(fill=value_flag))+
   xlab("Occupation (in Categorical Groups)") +
@@ -268,7 +264,7 @@ ggplot(scores_by_value_flag, aes(x=occupation, y=score)) +
 
 
 ### Value Flags by Age, Based on Education
-```{r}
+```{r results="markup"}
 # getting value_flag counts for individuals of a certain age and occupation
 age_value_by_occupation <- all_df %>%
   filter(age >= 25) %>%
@@ -286,7 +282,7 @@ ggplot(data = age_value_by_occupation, mapping =
 ```
 
 ### Synthesis of New Variables
-```{r}
+```{r results="markup"}
 all_data <- all_df %>%
   mutate(cap_hours_ratio = cap_gain/hours_per_week) %>%
   select(age,education_num, cap_gain, hours_per_week,cap_hours_ratio,value_flag)
@@ -311,8 +307,10 @@ principle components of this data set are:
  
  
 Out of these components of the data set the population of age and capital gain 
-is focused on to conclude if they play a rule in the categorizing a client as 
+is focused on during this data analysis to conclude if they play a rule in the categorizing a client as 
 high value. 
+
+There are also comparisons of the regression models. These regression models are taken on the education number and age. There you will see how the clients education number and play a role in their value flag.
 
 ### Bootstrap Confidence Interval
 
