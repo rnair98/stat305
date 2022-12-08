@@ -218,7 +218,7 @@ for (i in 1:ncol(num_df)){
 total_favstats <- cbind(names = columns, total_favstats)
 rownames(total_favstats) <- NULL
 
-total_favstats
+knitr::kable(total_favstats)
 ```
 
 #### Numerical Summary II
@@ -248,6 +248,8 @@ all_df %>%
   ggtitle("Average Score Vs. Age")+
   xlab("Age") +
   ylab("Average Score")
+
+ggsave("score_vs_age.jpeg")
 ```
 
 The idea behind this graph is to show how age may play a part in someone's score. 
@@ -277,6 +279,8 @@ ggplot(scores_by_value_flag, aes(x=occupation, y=score)) +
   xlab("Occupation (in Categorical Groups)") +
   ylab("Insurance Scores") +
   ggtitle("Distribution of Scores by Occupation")
+
+ggsave("score_distribution.jpeg")
 ```
 
 The graph above explicates the association between type of occupation and score 
@@ -305,6 +309,8 @@ ggplot(data = age_value_by_occupation, mapping =
   ylab("count of Value_Flag") +
   ggtitle("Value_Flag by Age, based on Occupation") +
   facet_wrap(~occupation, nrow=2)
+
+ggsave("flags_age_education.jpeg")
 ```
 
 The graph above looks at the total incidence of each value_flag at all ages 
@@ -360,6 +366,8 @@ ggplot(population, aes(x = cap_gain)) +
   ggtitle("Population Distribution of Capital Gains") + 
   xlab("Capital Gain") + 
   ylab("Density")
+
+ggsave("population_distribution_capgains.jpeg")
 ```
  
 The graph shows the skew we have with the capital gain. We can infer that there 
@@ -518,6 +526,8 @@ mse_low = mean( (test_data_low$avg_ed_num - predict(low_model, newdata = test_da
 
 mse_high
 mse_low
+
+ggsave("regression_model_1.jpeg")
 ```
 
 ## Using a Support Vector Machine Model
