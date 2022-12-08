@@ -229,7 +229,7 @@ num_sum <- insurance_data %>%
     avg_education_num = mean(education_num),
     avg_cap_gain = mean(cap_gain)
   )
-knitr::kable(summary(data))
+knitr::kable(summary(num_sum))
 ```
 
 
@@ -352,7 +352,7 @@ to the age 25 and have a capital gain greater than 0 USD, with a high value
 flag. We were given a population size of 2462.
 
 ```{r results="markup"}
-population <- df %>%
+population <- insurance_data %>%
   filter(age >= 25, cap_gain > 0, value_flag == "High") 
 
 ggplot(population, aes(x = cap_gain)) + 
@@ -609,6 +609,12 @@ age,education level and score play a crucial role for the insurance company and
 clients’ status. Other variables like marital status, occupation, capital gain 
 and working hours per week are also taken into consideration by agents of the 
 insurance company, but are considered to be less important. 
+
+## Contributions
+
+Rohit worked on the Introduction and Overview of SVMs. Ibrahim helped with the 
+Introduction and provided the descriptions for the Exploratory Data Analysis. 
+Ted wrote the Discussion and Conclusion.
 
 ## References
 
